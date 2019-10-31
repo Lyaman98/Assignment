@@ -12,7 +12,7 @@ public class Transaction {
     private TransactionDetails transactionDetails;
 
     @DBRef
-    private  SuplementaryDetails suplementaryDetails;
+    private SupplementaryDetails supplementaryDetails;
 
     @DBRef
     private FirstMessage firstMessage;
@@ -36,12 +36,12 @@ public class Transaction {
         this.transactionDetails = transactionDetails;
     }
 
-    public SuplementaryDetails getSuplementaryDetails() {
-        return suplementaryDetails;
+    public SupplementaryDetails getSupplementaryDetails() {
+        return supplementaryDetails;
     }
 
-    public void setSuplementaryDetails(SuplementaryDetails suplementaryDetails) {
-        this.suplementaryDetails = suplementaryDetails;
+    public void setSupplementaryDetails(SupplementaryDetails supplementaryDetails) {
+        this.supplementaryDetails = supplementaryDetails;
     }
 
     public FirstMessage getFirstMessage() {

@@ -7,13 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
 
 @Document
-public class SuplementaryDetails {
+public class SupplementaryDetails {
 
     @Id
     private String id;
     private String transactionIdentification;
     private LocalDate debitingDate;
-    private final String contentType = ContentType.SUPLEMENTARY_INFORMATION.getValue();
+    private final String contentType = ContentType.SUPPLEMENTARY_INFORMATION.getValue();
     private String counterPartyNameOrComment;
 
     public String getCounterPartyNameOrComment() {

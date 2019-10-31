@@ -1,60 +1,34 @@
 package com.media.solutions.task.controller;
 
-import com.media.solutions.task.domain.*;
-import com.media.solutions.task.repository.*;
-import com.media.solutions.task.util.FileParser;
+import com.media.solutions.task.domain.Statement;
+import com.media.solutions.task.service.StatementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
-@RestController
+@RestController("/api")
 public class StatementController {
 
-    private HeaderRepository headerRepository;
-    private StatementRepository statementRepository;
-    private TransactionDetailsRepository transactionDetailsRepository;
-    private SuplementaryDetailsRepository suplementaryDetailsRepository;
-    private TransactionRepository transactionRepository;
-
+    private StatementService statementService;
     private final Logger log = LoggerFactory.getLogger(StatementController.class);
 
-    public StatementController(HeaderRepository headerRepository, StatementRepository statementRepository,
-                               TransactionDetailsRepository transactionDetailsRepository, SuplementaryDetailsRepository suplementaryDetailsRepository, TransactionRepository transactionRepository) {
-        this.headerRepository = headerRepository;
-        this.statementRepository = statementRepository;
-        this.transactionDetailsRepository = transactionDetailsRepository;
-
-        this.suplementaryDetailsRepository = suplementaryDetailsRepository;
-        this.transactionRepository = transactionRepository;
+    public StatementController(StatementService statementService) {
+        this.statementService = statementService;
     }
 
-    @GetMapping("/api")
-    public void check(@RequestParam("path") String path) {
+    @GetMapping("/file/upload")
+    public ResponseEntity<List<Statement>> upload(@RequestParam MultipartFile file) throws FileNotFoundException {
 
-        FileParser fileParser = new FileParser();
-        File file = new File(path);
-
-        List<Statement> statements = fileParser.getFile(file);
-
-        statements.forEach(statement -> {
-
-            headerRepository.save(statement.getHeader());
-            statement.getTransactions().forEach(transaction -> {
-                transactionDetailsRepository.save(transaction.getTransactionDetails());
-                if (transaction.getSuplementaryDetails() != null)
-                suplementaryDetailsRepository.save(transaction.getSuplementaryDetails());
-                transactionRepository.save(transaction);
-
-            });
-            statementRepository.save(statement);
-
-        });
+        List<Statement> statementList = statementService.save(file);
+        return ResponseEntity.ok().body(statementList);
     }
+
 
 }
