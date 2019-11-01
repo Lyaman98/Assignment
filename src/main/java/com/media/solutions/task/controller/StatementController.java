@@ -3,7 +3,6 @@ package com.media.solutions.task.controller;
 import com.media.solutions.task.domain.Statement;
 import com.media.solutions.task.gpc.readers.StatementReader;
 import com.media.solutions.task.gpc.writers.StatementWriter;
-import com.media.solutions.task.gpc.writers.StatementWriterImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
