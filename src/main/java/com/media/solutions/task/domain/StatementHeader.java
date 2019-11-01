@@ -7,13 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
 
 @Document
-public class Header {
+public class StatementHeader {
 
     @Id
     private String id;
     private final String contentType = ContentType.HEADER.getValue();
-    private final int debitBalanceSign = 0;
-    private final int CreditBalanceSign = 0;
+    private int debitBalanceSign;
+    private int CreditBalanceSign;
     private String accountNumber;
     private LocalDate openingBalanceDate;
     private String accountOwner;
@@ -21,11 +21,35 @@ public class Header {
     private char openingSign;
     private String closingBalance;
     private char closingSign;
+    private char debitSign;
     private String sumOfDebit;
     private String sumOfCredit;
     private String statementSerialNumber;
     private LocalDate statementDate;
 
+    public char getDebitSign() {
+        return debitSign;
+    }
+
+    public void setDebitSign(char debitSign) {
+        this.debitSign = debitSign;
+    }
+
+    public int getDebitBalanceSign() {
+        return debitBalanceSign;
+    }
+
+    public void setDebitBalanceSign(int debitBalanceSign) {
+        this.debitBalanceSign = debitBalanceSign;
+    }
+
+    public int getCreditBalanceSign() {
+        return CreditBalanceSign;
+    }
+
+    public void setCreditBalanceSign(int creditBalanceSign) {
+        CreditBalanceSign = creditBalanceSign;
+    }
 
     public String getContentType() {
         return contentType;
@@ -129,7 +153,7 @@ public class Header {
 
     @Override
     public String toString() {
-        return "Header{" +
+        return "StatementHeader{" +
                 "id='" + id + '\'' +
                 ", contentType=" + contentType +
                 ", debitBalanceSign=" + debitBalanceSign +

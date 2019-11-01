@@ -1,33 +1,41 @@
 package com.media.solutions.task.controller;
 
 import com.media.solutions.task.domain.Statement;
-import com.media.solutions.task.service.StatementService;
+import com.media.solutions.task.gpc.readers.StatementReader;
+import com.media.solutions.task.gpc.writers.StatementWriter;
+import com.media.solutions.task.gpc.writers.StatementWriterImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
-@RestController("/api")
+@RestController
+@RequestMapping("/api")
 public class StatementController {
 
-    private StatementService statementService;
     private final Logger log = LoggerFactory.getLogger(StatementController.class);
 
-    public StatementController(StatementService statementService) {
-        this.statementService = statementService;
+    private StatementWriter statementWriter;
+    private StatementReader statementReader;
+
+    public StatementController(StatementWriter statementWriter, StatementReader statementReader) {
+        this.statementWriter = statementWriter;
+        this.statementReader = statementReader;
     }
 
-    @GetMapping("/file/upload")
-    public ResponseEntity<List<Statement>> upload(@RequestParam MultipartFile file) throws FileNotFoundException {
+    //api for uploading file from some source and saving it in Mongodb
 
-        List<Statement> statementList = statementService.save(file);
-        return ResponseEntity.ok().body(statementList);
+    @GetMapping("/upload/file")
+    public void uploadFile(@RequestParam MultipartFile file) throws IOException {
+
+        List<Statement> statements = statementReader.read(file.getInputStream());
+        statementWriter.write(statements);
     }
 
 

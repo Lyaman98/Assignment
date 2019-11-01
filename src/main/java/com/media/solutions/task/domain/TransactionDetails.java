@@ -13,12 +13,12 @@ public class TransactionDetails {
     @Id
     private String id;
     private final String contentType = ContentType.TRANSACTION_DETAIL.getValue();
-    private final String delimiter = "00";
+    private String delimiter;
     private String accountNumber;
     private String counterPartAccountNumber;
     private String transactionIdentifier;
     private String transactionAmount;
-    private String accountType;
+    private char accountType;
     private String variableCode;
     private String bankCode;
     private String constantCode;
@@ -29,11 +29,19 @@ public class TransactionDetails {
     private String currencyCode;
     private LocalDate postingDate;
 
-    public String getAccountType() {
+    public String getDelimiter() {
+        return delimiter;
+    }
+
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
+    }
+
+    public char getAccountType() {
         return accountType;
     }
 
-    public void setAccountType(String accountType) {
+    public void setAccountType(char accountType) {
         this.accountType = accountType;
     }
 
@@ -51,10 +59,6 @@ public class TransactionDetails {
 
     public String getCounterPartyNameOrDescription() {
         return counterPartyNameOrDescription;
-    }
-
-    public String getDelimeter() {
-        return delimiter;
     }
 
     public String getId() {

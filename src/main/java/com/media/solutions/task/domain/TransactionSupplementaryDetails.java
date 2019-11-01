@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
 
 @Document
-public class SupplementaryDetails {
+public class TransactionSupplementaryDetails {
 
     @Id
     private String id;

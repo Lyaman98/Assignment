@@ -1,24 +1,15 @@
 package com.media.solutions.task.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class Transaction {
 
     @Id
     private String id;
-
-    @DBRef
     private TransactionDetails transactionDetails;
-
-    @DBRef
-    private SupplementaryDetails supplementaryDetails;
-
-    @DBRef
-    private FirstMessage firstMessage;
-
-    @DBRef
-    private SecondMessage secondMessage;
+    private TransactionSupplementaryDetails transactionSupplementaryDetails;
+    private TransactionFirstMessage firstMessage;
+    private TransactionSecondMessage transactionSecondMessage;
 
     public String getId() {
         return id;
@@ -36,27 +27,27 @@ public class Transaction {
         this.transactionDetails = transactionDetails;
     }
 
-    public SupplementaryDetails getSupplementaryDetails() {
-        return supplementaryDetails;
+    public TransactionSupplementaryDetails getTransactionSupplementaryDetails() {
+        return transactionSupplementaryDetails;
     }
 
-    public void setSupplementaryDetails(SupplementaryDetails supplementaryDetails) {
-        this.supplementaryDetails = supplementaryDetails;
+    public void setTransactionSupplementaryDetails(TransactionSupplementaryDetails transactionSupplementaryDetails) {
+        this.transactionSupplementaryDetails = transactionSupplementaryDetails;
     }
 
-    public FirstMessage getFirstMessage() {
+    public TransactionFirstMessage getFirstMessage() {
         return firstMessage;
     }
 
-    public void setFirstMessage(FirstMessage firstMessage) {
+    public void setFirstMessage(TransactionFirstMessage firstMessage) {
         this.firstMessage = firstMessage;
     }
 
-    public SecondMessage getSecondMessage() {
-        return secondMessage;
+    public TransactionSecondMessage getTransactionSecondMessage() {
+        return transactionSecondMessage;
     }
 
-    public void setSecondMessage(SecondMessage secondMessage) {
-        this.secondMessage = secondMessage;
+    public void setTransactionSecondMessage(TransactionSecondMessage transactionSecondMessage) {
+        this.transactionSecondMessage = transactionSecondMessage;
     }
 }

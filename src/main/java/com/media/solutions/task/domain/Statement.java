@@ -2,39 +2,33 @@ package com.media.solutions.task.domain;
 
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 @Document
 public class Statement {
 
     @Id
     private String id;
-
-    @DBRef
-    private Header header;
-
-    @DBRef
-    private List<Transaction> transactions = new ArrayList<>();
+    private StatementHeader statementHeader;
+    private LinkedList<Transaction> transactions = new LinkedList<>();
 
 
-    public List<Transaction> getTransactions() {
+    public LinkedList<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public void setTransactions(LinkedList<Transaction> transactions) {
         this.transactions = transactions;
     }
 
-    public Header getHeader() {
-        return header;
+    public StatementHeader getStatementHeader() {
+        return statementHeader;
     }
 
-    public void setHeader(Header header) {
-        this.header = header;
+    public void setStatementHeader(StatementHeader statementHeader) {
+        this.statementHeader = statementHeader;
     }
 
     public String getId() {
