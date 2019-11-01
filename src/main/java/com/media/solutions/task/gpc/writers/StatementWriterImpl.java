@@ -16,9 +16,7 @@ public class StatementWriterImpl implements StatementWriter {
     }
 
     @Override
-    public boolean write(List<Statement> statementList) {
+    public void write(List<Statement> statementList) {
         statementList.forEach(statement -> statementRepository.save(statement));
-
-        return true;
     }
 }

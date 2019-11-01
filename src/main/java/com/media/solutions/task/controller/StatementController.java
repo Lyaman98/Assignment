@@ -5,6 +5,7 @@ import com.media.solutions.task.gpc.readers.StatementReader;
 import com.media.solutions.task.gpc.writers.StatementWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,10 +32,12 @@ public class StatementController {
     //api for uploading file from some source and saving it in Mongodb
 
     @GetMapping("/upload/file")
-    public void uploadFile(@RequestParam MultipartFile file) throws IOException {
+    public ResponseEntity<String> uploadFile(@RequestParam MultipartFile file) throws IOException {
 
         List<Statement> statements = statementReader.read(file.getInputStream());
         statementWriter.write(statements);
+
+        return ResponseEntity.ok("Successfully saved");
     }
 
 
